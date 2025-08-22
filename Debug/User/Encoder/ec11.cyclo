@@ -1,0 +1,5 @@
+../User/Encoder/ec11.c:11:6:EC11_Init	2
+../User/Encoder/ec11.c:40:6:EC11_Update	2
+../User/Encoder/ec11.c:58:9:EC11_GetDelta	2
+../User/Encoder/ec11.c:65:9:EC11_ButtonPressed	4
+../User/Encoder/ec11.c:75:9:EC11_ButtonReleased	4

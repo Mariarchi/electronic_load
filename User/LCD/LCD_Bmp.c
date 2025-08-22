@@ -38,6 +38,7 @@ void SD_Init(void){
 //		while(1);
 	}else{
 		printf("SD card mount file system success!! \r\n");
+		USB_Send_Message("SD card mount file system success!!\r\n");
 		for (counter = 0; counter < MAX_BMP_FILES; counter++){
 			pDirectoryFiles[counter] = malloc(11); 
 		}	

@@ -370,8 +370,76 @@ void GUI_DisNum(POINT Xpoint, POINT Ypoint, int32_t Nummber,
 }
 
 
+void GUI_DisFloatNum(POINT Xpoint, POINT Ypoint, float Nummber,
+                sFONT* Font, COLOR Color_Background, COLOR Color_Foreground )
+{
+    if(Xpoint > sLCD_DIS.LCD_Dis_Column || Ypoint > sLCD_DIS.LCD_Dis_Page) {
+        DEBUG("GUI_DisNum Input exceeds the normal display range\r\n");
+        return;
+    }
+
+    // Проверяем, является ли число отрицательным
+    uint8_t isNegative = 0;
+    if (Nummber < 0) {
+        isNegative = 1;
+        Nummber = -Nummber;
+    }
+
+    // Разделяем число на целую и дробную части
+    uint8_t integerPart = (int)Nummber;
+    float fractionalPart = Nummber - integerPart;
+
+    // Извлекаем сотые доли (округляем до двух знаков)
+    uint8_t hundredths = (int)(fractionalPart * 100 + 0.5f); // +0.5 для округления
+
+    // Обрабатываем целую часть (разбиваем на цифры)
+    uint8_t intDigits[10] = {0}; // Максимум 10 цифр для int
+    uint8_t Str_Array[10] = {0};
+    uint8_t *pStr = Str_Array;
+    uint8_t intLen = 0;
+
+    // Если целая часть = 0, то всё равно записываем 0
+    if (integerPart == 0) {
+        intDigits[intLen++] = 0;
+    } else {
+        while (integerPart > 0 && intLen < 10) {
+            intDigits[intLen++] = integerPart % 10;
+            integerPart /= 10;
+        }
+    }
+
+    // Записываем цифры целой части в обратном порядке
+    size_t pos = 0;
+    if (isNegative) {
+    	Str_Array[pos++] = '-'; // Можно заменить на 255 или другое значение, если нужны только цифры
+    }
+
+    for (int i = intLen - 1; i >= 0; i--) {
+    	Str_Array[pos++] = intDigits[i] + '0';
+    }
+
+    // Добавляем запятую
+    Str_Array[pos++] = ','; // ASCII-код ',' = 44
+
+    // Добавляем сотые доли (две цифры)
+    Str_Array[pos++] = hundredths / 10 + '0';  // Десятые
+    Str_Array[pos++] = hundredths % 10 + '0';  // Сотые
+
+    //show
+    GUI_DisString_EN(Xpoint, Ypoint, (const char*)pStr, Font, Color_Background, Color_Foreground );
+}
 
 /******************************************************************************
+Отображение монохромного битового изображения;
+Выводит на экран монохромное (1 бит на пиксель) растровое изображение,
+где каждый бит соответствует пикселю (1 — белый, 0 — фон).
+
+Изображение хранится в виде массива, где каждый байт кодирует 8 пикселей
+(бит = 1 → пиксель включён).
+
+Для GUI_Disbitmap() и GUI_DisGrayMap() данные должны быть подготовлены
+заранее (например, утилитой Image2Lcd).
+
 function:	Display the bit map,1 byte = 8bit = 8 points
 parameter:
 	Xpoint ：X coordinate
@@ -396,6 +464,8 @@ void GUI_Disbitmap(POINT Xpoint, POINT Ypoint, const unsigned char *pMap,
 }
 
 /******************************************************************************
+Выводит на экран изображение с градациями серого (4 бита на пиксель, 16 уровней яркости).
+
 function:	Display the Gray map,1 byte = 8bit = 2 points
 parameter:
 	Xpoint ：X coordinate
@@ -431,6 +501,7 @@ void GUI_DisGrayMap(POINT Xpoint, POINT Ypoint, const unsigned char *pBmp)
     }
 }
 
+// подбор размера шрифта
 sFONT *GUI_GetFontSize(POINT Dx, POINT Dy)
 {
     sFONT *Font;
@@ -473,6 +544,7 @@ void GUI_Showtime(POINT Xstart, POINT Ystart, POINT Xend, POINT Yend,
     //According to the display area adaptive font size
     POINT Dx = (Xend - Xstart) / 7;//Determine the spacing between characters
     POINT Dy = Yend - Ystart;      //determine the font size
+    Yend -= 5; // убрал немного расстояние отрисовки белого фона снизу
     Font = GUI_GetFontSize(Dx, Dy);
 	
 	if ((pTime->Sec % 10) < 10 && (pTime->Sec % 10) > 0) {
@@ -531,7 +603,7 @@ void GUI_Show(void)
 {
     DEBUG("LCD_Dis_Column = %d\r\n", sLCD_DIS.LCD_Dis_Column);
     DEBUG("LCD_Dis_Page = %d\r\n", sLCD_DIS.LCD_Dis_Page);
-    GUI_Clear(0);
+    GUI_Clear(WHITE);
     if(sLCD_DIS.LCD_Dis_Column > sLCD_DIS.LCD_Dis_Page) { //Horizontal screen display
 
         DEBUG("Draw Line\r\n");

@@ -1,5 +1,5 @@
 #include "DEV_Config.h"
-#include "mmc_sd.h"			   
+#include "MMC_SD.h"
 #include "spi.h"
 					   					   
 unsigned char  SD_Type=0;  //version of the sd card
@@ -115,7 +115,7 @@ unsigned char SD_SendBlock(unsigned char*buf,unsigned char cmd)
 }
 
 //send a command to sd card 
-//cmd£ºcommand
+//cmdï¿½ï¿½command
 //arg: parameter
 //crc: crc
 //return: response sent back from sd card.
@@ -164,7 +164,7 @@ unsigned char SD_GetCID(unsigned char *cid_data)
 unsigned char SD_GetCSD(unsigned char *csd_data)
 {
     unsigned char r1;	 
-    r1 = SD_SendCmd(CMD9,0,0x01);//·¢CMD9ÃüÁî£¬¶ÁCSD send CMD9 in order to get CSD
+    r1 = SD_SendCmd(CMD9,0,0x01);//ï¿½ï¿½CMD9ï¿½ï¿½ï¿½î£¬ï¿½ï¿½CSD send CMD9 in order to get CSD
     if(r1 == 0)	{
     	r1=SD_RecvData(csd_data, 16);
     }
@@ -176,7 +176,7 @@ unsigned char SD_GetCSD(unsigned char *csd_data)
 //obtian the totals of sectors of sd card.
 //return: 0 error, other else for storage of sd card.
 //numbers of bytes of each sector must be 512, otherwise fail to initialization.  
-unsigned int SD_GetSectorCount(void)
+uint32_t SD_GetSectorCount(void)
 {
     unsigned char csd[16];
     unsigned int Capacity;  
@@ -274,7 +274,7 @@ unsigned char SD_Initialize(void)
 //sector: sector
 //cnt: totals of sectors]
 //return: 0 ok, other for failure
-unsigned char SD_ReadDisk(unsigned char*buf,unsigned int sector,unsigned char cnt)
+unsigned char SD_ReadDisk(uint8_t*buf, uint32_t sector, uint8_t cnt)
 {
 	unsigned char r1;
 	if(SD_Type!=SD_TYPE_V2HC)sector <<= 9;
@@ -305,7 +305,7 @@ unsigned char SD_ReadDisk(unsigned char*buf,unsigned int sector,unsigned char cn
 //sector: start sector
 //cnt: totals of sectors]
 //return: 0 ok, other for failure
-unsigned char SD_WriteDisk(unsigned char*buf,unsigned int sector,unsigned char cnt)
+unsigned char SD_WriteDisk(uint8_t*buf, uint32_t sector, uint8_t cnt)
 {
 	unsigned char r1;
 	if(SD_Type!=SD_TYPE_V2HC)sector *= 512;

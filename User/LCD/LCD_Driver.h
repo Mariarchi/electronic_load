@@ -59,7 +59,7 @@ function:
 typedef struct {
     LENGTH LCD_Dis_Column;	//COLUMN
     LENGTH LCD_Dis_Page;	//PAGE
-    LCD_SCAN_DIR LCD_Scan_Dir;
+    LCD_SCAN_DIR LCD_Scan_Dir; // направление заполнения пикселей???
     POINT LCD_X_Adjust;		//LCD x actual display position calibration
     POINT LCD_Y_Adjust;		//LCD y actual display position calibration
 } LCD_DIS;

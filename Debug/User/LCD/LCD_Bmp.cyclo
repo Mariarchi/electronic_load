@@ -1,0 +1,2 @@
+../User/LCD/LCD_Bmp.c:26:6:SD_Init	3
+../User/LCD/LCD_Bmp.c:54:6:LCD_Show_bmp	7

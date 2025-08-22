@@ -37,8 +37,7 @@ typedef struct {
 	int16_t iYoff;
 	float fXfac;
 	float fYfac;
-	//Select the coordinates of the XPT2046 touch \
-	  screen relative to what scan direction
+	// Select the coordinates of the XPT2046 touch screen relative to what scan direction
 	LCD_SCAN_DIR TP_Scan_Dir;
 }TP_DEV;
 
@@ -50,11 +49,20 @@ typedef struct{
 	DOT_PIXEL DotPixel; 
 }TP_DRAW;
 
+typedef struct {
+	bool condition; // 1 - ON, 0 - OFF
+	bool currentType; // 1 - AC, 0 - DC
+	float currentValue;
+	float voltageValue;
+}ELECTONIC_LOAD_PARAMETERS;
 
 void TP_GetAdFac(void);
 void TP_Adjust(void);
 void TP_Dialog(void);
 void TP_DrawBoard(void);
-void TP_DrawFigures(void);
 void TP_Init( LCD_SCAN_DIR Lcd_ScanDir );
+void TP_IndicationsUnit(void);
+void TP_MenuTouch(void);
+void TP_MenuDialog(void);
+void LOAD_Init(void);
 #endif

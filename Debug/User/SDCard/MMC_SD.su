@@ -1,0 +1,16 @@
+../User/SDCard/MMC_SD.c:9:15:SD_SPI_ReadWriteByte	16	static
+../User/SDCard/MMC_SD.c:16:6:SD_SPI_SpeedLow	4	static
+../User/SDCard/MMC_SD.c:25:6:SD_SPI_SpeedHigh	4	static
+../User/SDCard/MMC_SD.c:34:6:SD_DisSelect	8	static
+../User/SDCard/MMC_SD.c:42:15:SD_Select	8	static
+../User/SDCard/MMC_SD.c:51:15:SD_WaitReady	16	static
+../User/SDCard/MMC_SD.c:66:15:SD_GetResponse	24	static
+../User/SDCard/MMC_SD.c:81:15:SD_RecvData	16	static
+../User/SDCard/MMC_SD.c:100:15:SD_SendBlock	24	static
+../User/SDCard/MMC_SD.c:122:15:SD_SendCmd	24	static
+../User/SDCard/MMC_SD.c:148:15:SD_GetCID	24	static
+../User/SDCard/MMC_SD.c:164:15:SD_GetCSD	24	static
+../User/SDCard/MMC_SD.c:179:10:SD_GetSectorCount	32	static
+../User/SDCard/MMC_SD.c:202:15:SD_Initialize	32	static
+../User/SDCard/MMC_SD.c:277:15:SD_ReadDisk	32	static
+../User/SDCard/MMC_SD.c:308:15:SD_WriteDisk	32	static

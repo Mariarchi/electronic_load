@@ -1,0 +1,6 @@
+../User/FATFS/diskio.c:20:9:disk_initialize	24	static
+../User/FATFS/diskio.c:43:9:disk_status	16	static
+../User/FATFS/diskio.c:54:9:disk_read	32	static
+../User/FATFS/diskio.c:87:9:disk_write	32	static
+../User/FATFS/diskio.c:114:9:disk_ioctl	24	static
+../User/FATFS/diskio.c:155:7:get_fattime	4	static

@@ -19,6 +19,7 @@
 extern LCD_DIS sLCD_DIS;
 static TP_DEV sTP_DEV;
 static TP_DRAW sTP_Draw;
+static ELECTONIC_LOAD_PARAMETERS sELECTONIC_LOAD_PARAMETERS;
 /*******************************************************************************
 function:
 		Read the ADC of the channel
@@ -38,13 +39,13 @@ static uint16_t TP_Read_ADC(uint8_t CMD)
 
 	SPI4W_Write_Byte(CMD);
 	Driver_Delay_us(200);
-
-	Data = SPI4W_Read_Byte(0x00);
+	
+	Data = SPI4W_Read_Byte(0XFF);
 	Data <<= 8;//7bit
-	Data |= SPI4W_Read_Byte(0x00);
+	Data |= SPI4W_Read_Byte(0XFF);
 	Data >>= 3;//5bit
 	TP_CS_1;
-
+	
 	//LCD SPI speed = 18 MHz
 	hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
 	HAL_SPI_Init(&hspi1);
@@ -72,7 +73,7 @@ static uint16_t TP_Read_ADC_Average(uint8_t Channel_Cmd)
 		Read_Buff[i] = TP_Read_ADC(Channel_Cmd);
 		Driver_Delay_us(200);
 	}
-
+	
     //Sort from small to large
     for (i = 0; i < READ_TIMES  -  1; i ++) {
         for (j = i + 1; j < READ_TIMES; j ++) {
@@ -125,7 +126,7 @@ static bool TP_Read_TwiceADC(uint16_t *pXCh_Adc, uint16_t  *pYCh_Adc )
 //	Driver_Delay_us(10);
     TP_Read_ADC_XY(&XCh_Adc2, &YCh_Adc2);
 //	Driver_Delay_us(10);
-
+	
     //The ADC error used twice is greater than ERR_RANGE to take the average
     if( ((XCh_Adc2 <= XCh_Adc1 && XCh_Adc1 < XCh_Adc2 + ERR_RANGE) ||
          (XCh_Adc1 <= XCh_Adc2 && XCh_Adc2 < XCh_Adc1 + ERR_RANGE))
@@ -713,50 +714,94 @@ void TP_DrawBoard(void)
 
 /*******************************************************************************
 function:
-		Draw Board
+		Paint menu options
 *******************************************************************************/
-void TP_DrawFigures(void)
+void TP_MenuDialog(void) {
+    //LCD_Clear(LCD_BACKGROUND);
+    DEBUG("Menu return ...\r\n");
+
+    // Current show
+	GUI_DrawRectangle(0, 20,
+					  sLCD_DIS.LCD_Dis_Column/2, 220,
+					  MAGENTA, DRAW_FULL, DOT_PIXEL_1X1);
+	GUI_DisString_EN(10, 30, "Current:", &Font24, MAGENTA, BLACK);
+
+	// Voltage show
+	GUI_DrawRectangle(sLCD_DIS.LCD_Dis_Column/2, 20,
+					  sLCD_DIS.LCD_Dis_Column, 220,
+					  GBLUE, DRAW_FULL, DOT_PIXEL_1X1);
+	GUI_DisString_EN(250, 30, "Voltage:", &Font24, GBLUE, BLACK);
+
+	// AC/DC Switch (BRRED/YELLOW)
+	if (sELECTONIC_LOAD_PARAMETERS.currentType) {
+		GUI_DrawRectangle(sLCD_DIS.LCD_Dis_Column/2, 220,
+				sLCD_DIS.LCD_Dis_Column, sLCD_DIS.LCD_Dis_Page,
+				BRRED, DRAW_FULL, DOT_PIXEL_1X1);
+		GUI_DisString_EN(345, 260, "AC", &Font24, BRRED, BLACK);
+	} else {
+		GUI_DrawRectangle(sLCD_DIS.LCD_Dis_Column/2, 220,
+				sLCD_DIS.LCD_Dis_Column, sLCD_DIS.LCD_Dis_Page,
+				YELLOW, DRAW_FULL, DOT_PIXEL_1X1);
+		GUI_DisString_EN(345, 260, "DC", &Font24, YELLOW, BLACK);
+	}
+
+	// ON/OFF switch (GREEN/RED)
+	if (sELECTONIC_LOAD_PARAMETERS.condition) {
+		GUI_DrawRectangle(0, 220,
+			sLCD_DIS.LCD_Dis_Column/2, sLCD_DIS.LCD_Dis_Page,
+			GREEN, DRAW_FULL, DOT_PIXEL_1X1);
+		GUI_DisString_EN(103, 260, "ON", &Font24, GREEN, BLACK);
+	} else {
+		GUI_DrawRectangle(0, 220,
+		sLCD_DIS.LCD_Dis_Column/2, sLCD_DIS.LCD_Dis_Page,
+		RED, DRAW_FULL, DOT_PIXEL_1X1);
+		GUI_DisString_EN(95, 260, "OFF", &Font24, RED, BLACK);
+	}
+}
+
+/*******************************************************************************
+function:
+		Paint numbers
+*******************************************************************************/
+void TP_IndicationsUnit(void) {
+	GUI_DisFloatNum(280, 120, 131.5487, &Font24, GBLUE, BLACK);
+	GUI_DisString_EN(400, 120, "Volt", &Font24, GBLUE, BLACK);
+
+	GUI_DisFloatNum(60, 120, 6.01647, &Font24, MAGENTA, BLACK);
+	GUI_DisString_EN(180, 120, "Amp", &Font24, MAGENTA, BLACK);
+}
+
+
+/*******************************************************************************
+function:
+		Touch position on menu
+*******************************************************************************/
+void TP_MenuTouch(void)
 {
-    static uint8_t cnt = 0;
-    static uint8_t color_change_cnt;
-    static COLOR colors[] = {BLACK, BLUE, BRED, GRED, GBLUE, RED, MAGENTA, GREEN, CYAN, YELLOW, BROWN, BRRED, GRAY};
+	sTP_Draw.Xpoint = 0;
+	sTP_Draw.Ypoint = 0;
     TP_Scan(0);
-    if (sTP_DEV.chStatus & TP_PRESS_DOWN) {		//Press the button
-        //Horizontal screen
-        if (sTP_Draw.Xpoint < sLCD_DIS.LCD_Dis_Column &&
-            //Determine whether the law is legal
-            sTP_Draw.Ypoint < sLCD_DIS.LCD_Dis_Page) {
-                LCD_Clear(LCD_BACKGROUND);
-
-                switch (cnt){
-                    case 0:
-                        GUI_DrawCircle(sTP_Draw.Xpoint, sTP_Draw.Ypoint, 50,
-                                  sTP_Draw.Color, DRAW_FULL, DOT_PIXEL_4X4);
-                        break;
-
-                    case 1:
-                        GUI_DrawLine(sTP_Draw.Xpoint, sTP_Draw.Ypoint, 0, 0,
-                                  sTP_Draw.Color, LINE_SOLID, DOT_PIXEL_2X2);
-                        break;
-
-                    case 2:
-                        GUI_DrawRectangle(sTP_Draw.Xpoint - 50, sTP_Draw.Ypoint - 50, sTP_Draw.Xpoint + 50, sTP_Draw.Ypoint + 50,
-                                  sTP_Draw.Color, DRAW_FULL, DOT_PIXEL_4X4);
-                        break;
-
-                    default:
-                        cnt = 0;
-                        break;
-                }
-                cnt++;
-
-                if (cnt > 2) cnt = 0;
-
-                sTP_Draw.Color = colors[color_change_cnt++];
-                if (color_change_cnt >= sizeof(colors)/sizeof(colors[1])) color_change_cnt = 0;
-        }
+    if ((sTP_DEV.chStatus & TP_PRESS_DOWN) && (sTP_Draw.Xpoint < sLCD_DIS.LCD_Dis_Column && sTP_Draw.Ypoint < sLCD_DIS.LCD_Dis_Page)) {		//Press the button
+		// ON/OFF Switch
+		if (sTP_Draw.Xpoint > 0 &&
+				sTP_Draw.Xpoint < (sLCD_DIS.LCD_Dis_Column/2 - 1) &&
+				sTP_Draw.Ypoint > 220 &&
+				sTP_Draw.Ypoint < sLCD_DIS.LCD_Dis_Page) {
+			sELECTONIC_LOAD_PARAMETERS.condition = !sELECTONIC_LOAD_PARAMETERS.condition;
+			TP_MenuDialog();
+		// AC/DC Switch
+		} else if(sTP_Draw.Xpoint > sLCD_DIS.LCD_Dis_Column/2 &&
+				sTP_Draw.Xpoint < sLCD_DIS.LCD_Dis_Column &&
+				sTP_Draw.Ypoint > 220 &&
+				sTP_Draw.Ypoint < sLCD_DIS.LCD_Dis_Page) {
+			sELECTONIC_LOAD_PARAMETERS.currentType = !sELECTONIC_LOAD_PARAMETERS.currentType;
+			TP_MenuDialog();
+		} else {
+			//TP_MenuDialog(); // можно использовать как костыль
+		}
     }
 }
+
 
 /*******************************************************************************
 function:
@@ -769,6 +814,17 @@ void TP_Init( LCD_SCAN_DIR Lcd_ScanDir )
     sTP_DEV.TP_Scan_Dir = Lcd_ScanDir;
 
     TP_Read_ADC_XY(&sTP_DEV.Xpoint, &sTP_DEV.Ypoint);
+}
+
+void LOAD_Init(void)
+{
+    sELECTONIC_LOAD_PARAMETERS.condition = 1;
+
+    sELECTONIC_LOAD_PARAMETERS.currentType = 1;
+
+    sELECTONIC_LOAD_PARAMETERS.currentValue = 0;
+
+    sELECTONIC_LOAD_PARAMETERS.voltageValue = 0;
 }
 
 

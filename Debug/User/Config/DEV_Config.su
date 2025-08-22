@@ -1,0 +1,7 @@
+../User/Config/DEV_Config.c:27:9:System_Init	8	static
+../User/Config/DEV_Config.c:37:6:System_Exit	4	static
+../User/Config/DEV_Config.c:42:6:PWM_SetValue	48	static
+../User/Config/DEV_Config.c:62:9:SPI4W_Write_Byte	16	static
+../User/Config/DEV_Config.c:79:9:SPI4W_Read_Byte	16	static
+../User/Config/DEV_Config.c:90:6:Driver_Delay_ms	16	static
+../User/Config/DEV_Config.c:95:6:Driver_Delay_us	24	static

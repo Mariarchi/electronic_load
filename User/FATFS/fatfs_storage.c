@@ -26,7 +26,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "mmc_sd.h"
+#include "MMC_SD.h"
 #include "ff.h"
 #include "diskio.h"
 #include "fatfs_storage.h"
@@ -73,11 +73,11 @@
 */
 
 #define RGB24TORGB16(R,G,B) ((R>>3)<<11)|((G>>2)<<5)|(B>>3)
-#define PIXEL(__M)  ((((__M) + 31 ) >> 5) << 2)//¶ÔÓÚ24Î»Õæ²ÊÉ« Ã¿Ò»ÐÐµÄÏñËØ¿í¶È±ØÐëÊÇ4µÄ±¶Êý  ·ñÔò²¹0²¹Æë
+#define PIXEL(__M)  ((((__M) + 31 ) >> 5) << 2)//ï¿½ï¿½ï¿½ï¿½24Î»ï¿½ï¿½ï¿½É« Ã¿Ò»ï¿½Ðµï¿½ï¿½ï¿½ï¿½Ø¿ï¿½È±ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½Ä±ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½
 
 extern LCD_DIS sLCD_DIS;
 
-uint8_t aBuffer[960];/* Ò»ÐÐÕæ²ÊÉ«Êý¾Ý»º´æ 320 * 3 = 960 */
+uint8_t aBuffer[960];/* Ò»ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ 320 * 3 = 960 */
 FILINFO MyFileInfo;
 DIR MyDirectory;
 FIL MyFile;
@@ -161,7 +161,7 @@ uint32_t Storage_OpenReadFile(uint8_t Xpoz, uint16_t Ypoz, const char* BmpName)
     LCD_Clear(LCD_BACKGROUND);
 	for(i = 0; i < height; i ++){
 		
-		//Ò»ÐÐÓÐÐ§ÐÅÏ¢
+		//Ò»ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½Ï¢
 		f_read(&file1, aBuffer, PIXEL(width * bit_pixel) >> 1, (UINT *)&BytesRead);
 		f_read(&file1, aBuffer + (PIXEL(width * bit_pixel) >> 1), PIXEL(width * bit_pixel) >> 1, (UINT *)&BytesRead);
 		
@@ -169,7 +169,7 @@ uint32_t Storage_OpenReadFile(uint8_t Xpoz, uint16_t Ypoz, const char* BmpName)
 		LCD_DC_1;
 		LCD_CS_0;
 		for (j = 0; j < width; j ++) {
-			k = j * 3;  //Ò»ÐÐÖÐµÚK¸öÏñËØµÄÆðµã
+			k = j * 3;  //Ò»ï¿½ï¿½ï¿½Ðµï¿½Kï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½
 //			LCD_Write_Data(RGB24TORGB16( aBuffer[k + 2], aBuffer[k + 1], aBuffer[k]));
 			SPI4W_Write_Byte((RGB24TORGB16( aBuffer[k + 2], aBuffer[k + 1], aBuffer[k])) >> 8);
 			SPI4W_Write_Byte((RGB24TORGB16( aBuffer[k + 2], aBuffer[k + 1], aBuffer[k])) & 0XFF);

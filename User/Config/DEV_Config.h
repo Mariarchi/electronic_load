@@ -1,9 +1,9 @@
 /*****************************************************************************
 * | File      	:	DEV_Config.c
 * | Author      :   Waveshare team
-* | Function    :	Show SDcard BMP picto LCD
+* | Function    :	Show SDcard BMP picto LCD 
 * | Info        :
-*   Provide the hardware underlying interface
+*   Provide the hardware underlying interface	 
 *----------------
 * |	This version:   V1.0
 * | Date        :   2018-01-11
@@ -13,8 +13,9 @@
 #ifndef _DEV_CONFIG_H_
 #define _DEV_CONFIG_H_
 
-#include "stm32f1xx_hal.h"
-#include "stm32f1xx_hal_gpio.h"
+#include "stm32f4xx_hal.h"
+#include "stm32f4xx_hal_gpio.h"
+#include "main.h"
 
 #define USE_SPI_4W 1
 #define USE_IIC 0
@@ -46,12 +47,13 @@
 
 #define GET_TP_IRQ		HAL_GPIO_ReadPin(TP_IRQ_GPIO_Port, TP_IRQ_Pin)
 
-//SD card
-#define  MAX_BMP_FILES  25
+//SD card 
+#define  MAX_BMP_FILES  25 	
 #define SD_CS_0			HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_RESET)
 #define SD_CS_1			HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET)
 
 /*------------------------------------------------------------------------------------------------------*/
+uint8_t System_Init(void);
 void System_Exit(void);
 void PWM_SetValue(uint16_t value);
 uint8_t SPI4W_Write_Byte(uint8_t value);

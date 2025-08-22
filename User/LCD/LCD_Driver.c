@@ -32,6 +32,10 @@ static void LCD_Reset(void)
     Driver_Delay_ms(500);
 }
 
+static void LCD_SetBackLight(uint16_t value)
+{
+	PWM_SetValue(value);
+}
 /*******************************************************************************
 function:
 		Write register address and data
@@ -256,6 +260,10 @@ void LCD_Init(LCD_SCAN_DIR LCD_ScanDir, uint16_t LCD_BLval)
 {
     //Hardware reset
     LCD_Reset();
+
+	if(LCD_BLval > 65535)
+		LCD_BLval = 65535;
+	LCD_SetBackLight(LCD_BLval);
 	
     //Set the initialization register
     LCD_InitReg();

@@ -26,6 +26,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stdio.h" // Если хотите использовать printf
 #include "DEV_Config.h"
 #include "LCD_Driver.h"
 #include "LCD_GUI.h"
@@ -62,6 +63,7 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 void USB_Send_Message(const char *msg);
 void UART_Send(const char *msg);
+int _write(int file, char *ptr, int len);
 
 /* USER CODE END PFP */
 
@@ -154,23 +156,24 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  //GUI_Show();
+	  //LCD_Show_bmp(Bmp_ScanDir , Lcd_ScanDir);
+	  //TP_DrawBoard();
+	  //GUI_DisGrayMap(0, 0, gImage_ninja);
+
+	  TP_MenuTouch();
+	  TP_IndicationsUnit();
+
+	  if (HAL_GetTick() - previousTick >= 1000) {
+		  previousTick = HAL_GetTick();
+
+		  sDev_time.Sec++;
+		  GUI_Showtime(0, 0, 126, 25, &sDev_time, BLUE);
+	  }
     /* USER CODE END WHILE */
-	//GUI_Show();
-	//LCD_Show_bmp(Bmp_ScanDir , Lcd_ScanDir);
-	//TP_DrawBoard();
-	//GUI_DisGrayMap(0, 0, gImage_ninja);
-
-	TP_MenuTouch();
-	TP_IndicationsUnit();
-
-	if (HAL_GetTick() - previousTick >= 1000) {
-		previousTick = HAL_GetTick();
-
-		sDev_time.Sec++;
-		GUI_Showtime(0, 0, 126, 25, &sDev_time, BLUE);
 	}
-    /* USER CODE BEGIN 3 */
-  }
+  /* USER CODE BEGIN 3 */
+
   /* USER CODE END 3 */
 }
 
@@ -201,7 +204,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
-	  _Error_Handler(__FILE__, __LINE__);
+    Error_Handler();
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
@@ -215,18 +218,8 @@ void SystemClock_Config(void)
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
   {
-	  _Error_Handler(__FILE__, __LINE__);
+    Error_Handler();
   }
-	  /**Configure the Systick interrupt time
-	  */
-	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
-
-	  /**Configure the Systick
-	  */
-	HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
-
-	/* SysTick_IRQn interrupt configuration */
-	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
 /* USER CODE BEGIN 4 */
@@ -239,13 +232,21 @@ void UART_Send(const char *msg) {
     HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 }
 
+// Опционально: перенаправляем printf на SWO (удобно для отладки)
+int _write(int file, char *ptr, int len) {
+    for (int i = 0; i < len; i++) {
+        ITM_SendChar(ptr[i]);
+    }
+    return len;
+}
+
 /* USER CODE END 4 */
 
 /**
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
-void _Error_Handler(char * file, int line)
+void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */

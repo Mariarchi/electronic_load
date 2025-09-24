@@ -57,29 +57,24 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LCD_DC_Pin GPIO_PIN_8 // LCD data/command selection
+#define LCD_DC_Pin GPIO_PIN_8
 #define LCD_DC_GPIO_Port GPIOA
-#define LCD_RST_Pin GPIO_PIN_9 // LCD reset
+#define LCD_RST_Pin GPIO_PIN_9
 #define LCD_RST_GPIO_Port GPIOA
-#define TP_IRQ_Pin GPIO_PIN_3 // touch panel interrupt
-#define TP_IRQ_GPIO_Port GPIOB
-#define SD_CS_Pin GPIO_PIN_4 // micro-SD card chip select
+#define TP_IRQ_Pin GPIO_PIN_15
+#define TP_IRQ_GPIO_Port GPIOA
+#define SD_CS_Pin GPIO_PIN_4
 #define SD_CS_GPIO_Port GPIOB
-#define LCD_BL_Pin GPIO_PIN_5 // LCD back light
+#define LCD_BL_Pin GPIO_PIN_5
 #define LCD_BL_GPIO_Port GPIOB
-#define LCD_CS_Pin GPIO_PIN_6 // LCD chip select
+#define LCD_CS_Pin GPIO_PIN_6
 #define LCD_CS_GPIO_Port GPIOB
-#define TP_CS_Pin GPIO_PIN_7  // touch panel chip select
+#define TP_CS_Pin GPIO_PIN_7
 #define TP_CS_GPIO_Port GPIOB
-// а где TP_BUSY????
 
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
-
-void _Error_Handler(char *, int);
-
-#define Error_Handler() _Error_Handler(__FILE__, __LINE__)
 
 #ifdef __cplusplus
 }

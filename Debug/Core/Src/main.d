@@ -34,25 +34,18 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/spi.h ../Core/Inc/main.h ../Core/Inc/tim.h \
  ../Core/Inc/usart.h ../USB_DEVICE/App/usb_device.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
- ../USB_DEVICE/Target/usbd_conf.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
- ../Core/Inc/gpio.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Config/DEV_Config.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/LCD/LCD_Driver.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/LCD/LCD_GUI.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/LCD/LCD_Driver.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Fonts/fonts.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/LCD/LCD_Touch.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Lib/MacroAndConst.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/LCD/LCD_GUI.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/LCD/LCD_Bmp.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Lib/Show_Lib.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Encoder/ec11.h
+ ../USB_DEVICE/Target/usbd_conf.h ../Core/Inc/gpio.h \
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Config/DEV_Config.h \
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_Driver.h \
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_GUI.h \
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_Driver.h \
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Fonts/fonts.h \
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_Touch.h \
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Lib/MacroAndConst.h \
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_GUI.h \
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_Bmp.h \
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Lib/Show_Lib.h \
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Encoder/ec11.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -93,21 +86,15 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../USB_DEVICE/App/usb_device.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
 ../USB_DEVICE/Target/usbd_conf.h:
-../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h:
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h:
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:
 ../Core/Inc/gpio.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Config/DEV_Config.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/LCD/LCD_Driver.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/LCD/LCD_GUI.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/LCD/LCD_Driver.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Fonts/fonts.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/LCD/LCD_Touch.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Lib/MacroAndConst.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/LCD/LCD_GUI.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/LCD/LCD_Bmp.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Lib/Show_Lib.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Encoder/ec11.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Config/DEV_Config.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_Driver.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_GUI.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_Driver.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Fonts/fonts.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_Touch.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Lib/MacroAndConst.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_GUI.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_Bmp.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Lib/Show_Lib.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Encoder/ec11.h:

@@ -16,7 +16,7 @@ S_DEPS += \
 
 # Each subdirectory must supply rules for building sources it contributes
 Core/Startup/%.o: ../Core/Startup/%.s Core/Startup/subdir.mk
-	arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -I"C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Config" -I"C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Fonts" -I"C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/LCD" -I"C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Lib" -I"C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/SDCard" -I"C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/FATFS/option" -I"C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Encoder" -x assembler-with-cpp -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -I"C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Config" -I"C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Fonts" -I"C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD" -I"C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Lib" -I"C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/SDCard" -I"C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/FATFS/option" -I"C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Encoder" -x assembler-with-cpp -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@" "$<"
 
 clean: clean-Core-2f-Startup
 

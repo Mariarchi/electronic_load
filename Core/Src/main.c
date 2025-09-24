@@ -15,15 +15,17 @@
   *
   ******************************************************************************
   */
-
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
 #include "usb_device.h"
-#include "usbd_cdc.h"
 #include "gpio.h"
 
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 #include "DEV_Config.h"
 #include "LCD_Driver.h"
 #include "LCD_GUI.h"
@@ -32,49 +34,96 @@
 #include "Show_Lib.h"
 #include "ec11.h"
 
-void USB_Send_Message(const char *msg) {
-	CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-	HAL_Delay(10);
-}
+/* USER CODE END Includes */
 
-void UART_Send(const char *msg) {
-    HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
-}
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
 
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+
+/* USER CODE BEGIN PV */
+
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+/* USER CODE BEGIN PFP */
+void USB_Send_Message(const char *msg);
+void UART_Send(const char *msg);
 
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
 int main(void)
 {
-	HAL_Init();
 
-	SystemClock_Config();
+  /* USER CODE BEGIN 1 */
 
-	MX_GPIO_Init();
-	MX_SPI1_Init();
-	MX_TIM3_Init();
-	MX_USART2_UART_Init();
-	MX_USB_DEVICE_Init();
+  /* USER CODE END 1 */
 
-	printf("3.5inch TFT Touch Shield Demo\r\n");
-	System_Init();
+  /* MCU Configuration--------------------------------------------------------*/
 
-	LCD_SCAN_DIR Lcd_ScanDir = SCAN_DIR_DFT;//SCAN_DIR_DFT = D2U_L2R направление отрисовки?
-	printf("Init LCD...\r\n");
-	LCD_Init(Lcd_ScanDir, 64000); // управление яркостью
-	printf("Init TouchPad...\r\n");
-	TP_Init(Lcd_ScanDir);
-	printf("Init SDcard...\r\n");
-	SD_Init();
-	printf("Install factory TP set...\r\n");
-	TP_GetAdFac();//Get the default calibration factor
-	printf("Initialization for Electronic load \r\n");
-	LOAD_Init();
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_SPI1_Init();
+  MX_TIM3_Init();
+  MX_USART2_UART_Init();
+  MX_USB_DEVICE_Init();
+  /* USER CODE BEGIN 2 */
+  printf("3.5inch TFT Touch Shield Demo\r\n");
+  System_Init();
+
+  LCD_SCAN_DIR Lcd_ScanDir = SCAN_DIR_DFT;//SCAN_DIR_DFT = D2U_L2R направление отрисовки?
+  printf("Init LCD...\r\n");
+  LCD_Init(Lcd_ScanDir, 64000); // управление яркостью
+  printf("Init TouchPad...\r\n");
+  TP_Init(Lcd_ScanDir);
+  printf("Init SDcard...\r\n");
+  SD_Init();
+  printf("Install factory TP set...\r\n");
+  TP_GetAdFac();//Get the default calibration factor
+  printf("Initialization for Electronic load \r\n");
+  LOAD_Init();
 
 	/*
 	printf("**********Show SD card pic**********\r\n");
 	LCD_SCAN_DIR Bmp_ScanDir = D2U_R2L; // тут появляется ошибка
 	LCD_Show_bmp(Bmp_ScanDir, Lcd_ScanDir);
- 	*/
+	*/
 
 
 /*
@@ -99,24 +148,31 @@ int main(void)
 	LCD_Clear(LCD_BACKGROUND);
 	TP_MenuDialog();
 
-	while (1) {
-	  //GUI_Show();
-	  //LCD_Show_bmp(Bmp_ScanDir , Lcd_ScanDir);
-	  //TP_DrawBoard();
-	  //GUI_DisGrayMap(0, 0, gImage_ninja);
+  /* USER CODE END 2 */
 
-		TP_MenuTouch();
-		TP_IndicationsUnit();
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  while (1)
+  {
+    /* USER CODE END WHILE */
+	//GUI_Show();
+	//LCD_Show_bmp(Bmp_ScanDir , Lcd_ScanDir);
+	//TP_DrawBoard();
+	//GUI_DisGrayMap(0, 0, gImage_ninja);
 
-	    if (HAL_GetTick() - previousTick >= 1000) {
-	        previousTick = HAL_GetTick();
+	TP_MenuTouch();
+	TP_IndicationsUnit();
 
-			sDev_time.Sec++;
-			GUI_Showtime(0, 0, 126, 25, &sDev_time, BLUE);
-	    }
+	if (HAL_GetTick() - previousTick >= 1000) {
+		previousTick = HAL_GetTick();
+
+		sDev_time.Sec++;
+		GUI_Showtime(0, 0, 126, 25, &sDev_time, BLUE);
 	}
+    /* USER CODE BEGIN 3 */
+  }
+  /* USER CODE END 3 */
 }
-
 
 /**
   * @brief System Clock Configuration
@@ -161,7 +217,6 @@ void SystemClock_Config(void)
   {
 	  _Error_Handler(__FILE__, __LINE__);
   }
-
 	  /**Configure the Systick interrupt time
 	  */
 	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
@@ -175,6 +230,14 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void USB_Send_Message(const char *msg) {
+	CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+	HAL_Delay(10);
+}
+
+void UART_Send(const char *msg) {
+    HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+}
 
 /* USER CODE END 4 */
 
@@ -192,8 +255,7 @@ void _Error_Handler(char * file, int line)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.

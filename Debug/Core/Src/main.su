@@ -1,5 +1,5 @@
-../Core/Src/main.c:35:6:USB_Send_Message	16	static
-../Core/Src/main.c:40:6:UART_Send	16	static
-../Core/Src/main.c:46:5:main	32	static
-../Core/Src/main.c:125:6:SystemClock_Config	88	static
-../Core/Src/main.c:185:6:_Error_Handler	16	static,ignoring_inline_asm
+../Core/Src/main.c:77:5:main	32	static
+../Core/Src/main.c:181:6:SystemClock_Config	88	static
+../Core/Src/main.c:233:6:USB_Send_Message	16	static
+../Core/Src/main.c:238:6:UART_Send	16	static
+../Core/Src/main.c:248:6:_Error_Handler	16	static,ignoring_inline_asm

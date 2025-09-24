@@ -1,6 +1,6 @@
 User/LCD/LCD_Touch.o: ../User/LCD/LCD_Touch.c ../User/LCD/LCD_Touch.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Lib/MacroAndConst.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Config/DEV_Config.h \
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Lib/MacroAndConst.h \
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Config/DEV_Config.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -35,11 +35,11 @@ User/LCD/LCD_Touch.o: ../User/LCD/LCD_Touch.c ../User/LCD/LCD_Touch.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h \
  ../Core/Inc/main.h ../Core/Inc/spi.h ../Core/Inc/main.h \
  ../User/LCD/LCD_Driver.h ../User/LCD/LCD_GUI.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Fonts/fonts.h \
- C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Lib/Debug.h
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Fonts/fonts.h \
+ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Lib/Debug.h
 ../User/LCD/LCD_Touch.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Lib/MacroAndConst.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Config/DEV_Config.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Lib/MacroAndConst.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Config/DEV_Config.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
@@ -77,5 +77,5 @@ C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Config/DEV_Config.h:
 ../Core/Inc/main.h:
 ../User/LCD/LCD_Driver.h:
 ../User/LCD/LCD_GUI.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Fonts/fonts.h:
-C:/Users/DmitriyIZ/Desktop/LCD_by_myself_F411/User/Lib/Debug.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Fonts/fonts.h:
+C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Lib/Debug.h:

@@ -44,6 +44,13 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Lib/MacroAndConst.h \
  C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_GUI.h \
  C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_Bmp.h \
+ ../USB_DEVICE/App/usbd_cdc_if.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
  C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Lib/Show_Lib.h \
  C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Encoder/ec11.h
 ../Core/Inc/main.h:
@@ -96,5 +103,12 @@ C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_Touch.h:
 C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Lib/MacroAndConst.h:
 C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_GUI.h:
 C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/LCD/LCD_Bmp.h:
+../USB_DEVICE/App/usbd_cdc_if.h:
+../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h:
+../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
+../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
+../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h:
+../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
+../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:
 C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Lib/Show_Lib.h:
 C:/Users/DmitriyIZ/Documents/My_projects/electronic_load/User/Encoder/ec11.h:

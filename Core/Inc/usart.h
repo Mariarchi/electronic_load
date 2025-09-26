@@ -29,6 +29,7 @@ extern "C" {
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
+#include "string.h" // Если хотите использовать printf
 
 /* USER CODE END Includes */
 
@@ -41,6 +42,9 @@ extern UART_HandleTypeDef huart2;
 void MX_USART2_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+
+void UART_Send(const char *msg);
+void UART_ReceiveString(char *buffer, uint16_t maxLen);
 
 /* USER CODE END Prototypes */
 

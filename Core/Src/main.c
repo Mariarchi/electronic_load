@@ -26,12 +26,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdio.h" // Если хотите использовать printf
 #include "DEV_Config.h"
 #include "LCD_Driver.h"
 #include "LCD_GUI.h"
 #include "LCD_Touch.h"
 #include "LCD_Bmp.h"
+#include "usbd_cdc_if.h"
 #include "Show_Lib.h"
 #include "ec11.h"
 
@@ -62,7 +62,6 @@
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 void USB_Send_Message(const char *msg);
-void UART_Send(const char *msg);
 int _write(int file, char *ptr, int len);
 
 /* USER CODE END PFP */
@@ -167,12 +166,21 @@ int main(void)
 	  if (HAL_GetTick() - previousTick >= 1000) {
 		  previousTick = HAL_GetTick();
 
+		/*
+		  UART_Send("Input something:\r\n");
+
+		  char rxBuffer[64];
+		  UART_ReceiveString(rxBuffer, sizeof(rxBuffer));
+		  printf("Received: %s\r\n", rxBuffer);
+		*/
+
 		  sDev_time.Sec++;
 		  GUI_Showtime(0, 0, 126, 25, &sDev_time, BLUE);
 	  }
+  }
     /* USER CODE END WHILE */
-	}
-  /* USER CODE BEGIN 3 */
+
+    /* USER CODE BEGIN 3 */
 
   /* USER CODE END 3 */
 }
@@ -226,10 +234,6 @@ void SystemClock_Config(void)
 void USB_Send_Message(const char *msg) {
 	CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
 	HAL_Delay(10);
-}
-
-void UART_Send(const char *msg) {
-    HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 }
 
 // Опционально: перенаправляем printf на SWO (удобно для отладки)
